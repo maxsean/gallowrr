@@ -1,10 +1,6 @@
-class ApplicationController < ActionController::Base
-  class ApplicationController < ActionController::Base
-  helper_method :current_user, :user_signed_in?
-  protect_from_forgery with: :null_session
+class Api::V1::ApiController < ActionController::Base
 
-## many helper methods to be inherited
-
+  ## many helper methods. Consider refactoring due to similarity to application_controller.rb
   def authenticate_user!
     if !user_signed_in?
       persist_location!
@@ -71,5 +67,4 @@ class ApplicationController < ActionController::Base
   def user_signed_in?
     !current_user.nil?
   end
-
 end
