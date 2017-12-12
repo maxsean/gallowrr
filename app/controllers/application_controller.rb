@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?
   protect_from_forgery with: :null_session
 
