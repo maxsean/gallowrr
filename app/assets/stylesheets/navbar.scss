@@ -1,0 +1,23 @@
+.top-bar {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  height: 2em;
+  background-color: #101516;
+  display: flex;
+  justify-content: space-between;
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.inactive-session {
+  display: flex;
+  justify-content: space-between;
+}
+
+.active-session {
+  display: flex;
+  justify-content: space-between;
+}
