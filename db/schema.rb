@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212161542) do
+ActiveRecord::Schema.define(version: 20171213165901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "word_id"
+    t.integer "incorrect", default: 0, null: false
+    t.boolean "complete", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "word_id"], name: "index_games_on_user_id_and_word_id", unique: true
+    t.index ["user_id"], name: "index_games_on_user_id"
+    t.index ["word_id"], name: "index_games_on_word_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "confirmation_digest"
@@ -30,6 +42,12 @@ ActiveRecord::Schema.define(version: 20171212161542) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["handle"], name: "index_users_on_handle", unique: true
     t.index ["universally_unique_id"], name: "index_users_on_universally_unique_id", unique: true
+  end
+
+  create_table "words", force: :cascade do |t|
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

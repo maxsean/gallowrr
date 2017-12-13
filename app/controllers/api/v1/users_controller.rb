@@ -25,8 +25,9 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def show
-    # not implemented. consider for future development
-    render json: authorized_user, adapter: :attributes
+    games = Game.where(user_id: params["id"])
+
+    render json: games
   end
 
   def update
