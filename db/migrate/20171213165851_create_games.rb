@@ -1,8 +1,8 @@
 class CreateGames < ActiveRecord::Migration[5.1]
   def change
     create_table :games do |t|
-      belongs_to :user
-      belongs_to :word
+      t.belongs_to :user
+      t.belongs_to :word
       t.integer :incorrect, default: 0, null: false
       t.boolean :complete, default: false, null: false
 
