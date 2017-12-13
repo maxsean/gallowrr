@@ -8,6 +8,7 @@ class Api::V1::GamesController < Api::V1::ApiController
 
   def create
     body = JSON.parse(request.body.read)
+    binding.pry
     game = Game.new(body)
     #set randome word as game word, database has unique so if it doesn't save, get another (until loop)
 

@@ -25,7 +25,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def show
-    games = Game.where(user_id: params["id"])
+    games = Game.where(user_id: params["id"]).order('created_at DESC')
 
     render json: games
   end

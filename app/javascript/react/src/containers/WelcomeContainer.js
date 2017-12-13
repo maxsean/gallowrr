@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router';
+import WelcomeTile from '../components/WelcomeTile'
+import UserContainer from './UserContainer'
 
 class WelcomeContainer extends Component {
   constructor(props) {
@@ -27,10 +28,19 @@ class WelcomeContainer extends Component {
 
 
   render() {
-
+    let display;
+    if (this.state.current_user.id) {
+      display =
+        <UserContainer
+          current_user_id={this.state.current_user.id}
+        />
+    } else {
+      display =
+        <WelcomeTile/>
+    }
     return(
       <div>
-        welcome
+        {display}
       </div>
     )
   }
