@@ -15,4 +15,13 @@ class Api::V1::GamesController < Api::V1::ApiController
     #return list of games to user?
   end
 
+  def update
+    body = JSON.parse(request.body.read)
+
+    game = Game.find(params["id"])
+    game.update(chosen_letters: body)
+
+    render json: game
+  end
+
 end

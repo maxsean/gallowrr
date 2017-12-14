@@ -15,6 +15,7 @@ class GameShowContainer extends React.Component{
     }
     this.fetchGame = this.fetchGame.bind(this)
     this.fetchCurrentUser = this.fetchCurrentUser.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount(){
@@ -48,6 +49,27 @@ class GameShowContainer extends React.Component{
     })
   }
 
+  handleClick(event){
+    event.preventDefault()
+    let chosen_letters = this.state.chosen_letters
+
+    chosen_letters.push(event.target.innerHTML)
+
+    fetch(`/api/v1/games/${this.props.params.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(chosen_letters)
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        incorrect: data.incorrect,
+        chosen_letters: data.chosen_letters,
+        game_user_id: data.user_id,
+        complete: data.complete
+      })
+    })
+  }
+
   render(){
     let display =
     <h2>Sorry, you are not authorized to view this game</h2>
@@ -61,6 +83,7 @@ class GameShowContainer extends React.Component{
         <AlphabetContainer
           chosen_letters={this.state.chosen_letters}
           word={this.state.word}
+          handleClick={this.handleClick}
         />
       </div>
     }
