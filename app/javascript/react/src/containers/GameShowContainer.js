@@ -10,7 +10,8 @@ class GameShowContainer extends React.Component{
       chosen_letters: [],
       word: null,
       game_user_id: null,
-      current_user_id: null
+      current_user_id: null,
+      complete: false
     }
     this.fetchGame = this.fetchGame.bind(this)
     this.fetchCurrentUser = this.fetchCurrentUser.bind(this)
@@ -41,14 +42,15 @@ class GameShowContainer extends React.Component{
         incorrect: data.incorrect,
         chosen_letters: data.chosen_letters,
         word: data.word.body,
-        game_user_id: data.user_id
+        game_user_id: data.user_id,
+        complete: data.complete
       })
     })
   }
 
   render(){
     let display =
-    <h1>You are not authorized to view this game</h1>
+    <h2>Sorry, you are not authorized to view this game</h2>
 
     if(this.state.game_user_id == this.state.current_user_id){
       display =
@@ -64,6 +66,10 @@ class GameShowContainer extends React.Component{
     }
     return(
       <div>
+        <div className="game-page-info">
+          <p>Total Guesses: {this.state.chosen_letters.length}</p>
+          <p>Total Incorrect Guesses: {this.state.incorrect}</p>
+        </div>
         {display}
       </div>
     )
