@@ -4,8 +4,6 @@ class SecretWordContainer extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      chosen_letters: this.props.chosen_letters,
-      word: this.props.word,
       display_array: this.props.display_array
     }
   }
