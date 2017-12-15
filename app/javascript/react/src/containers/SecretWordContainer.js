@@ -32,8 +32,11 @@ class SecretWordContainer extends React.Component{
     }
 
     return(
-      <div>
-        {display}
+      <div className="secret-word-container">
+        <p>Secret Word</p>
+        <div className="secret-word">
+          {display}
+        </div>
       </div>
     )
   }
