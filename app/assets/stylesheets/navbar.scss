@@ -1,23 +1,44 @@
 .top-bar {
+  margin-left: -8px;
+  margin-top: -8px;
   position: fixed;
-  width: 100%;
+  width: 100vw;
   z-index: 1;
   height: 2em;
-  background-color: #101516;
+  background-color: #221123;
   display: flex;
   justify-content: space-between;
   h1 {
-    margin: 0;
+    margin: 2px 8px;
     padding: 0;
+    font-size: 24px;
+  };
+  a:-webkit-any-link {
+    color: #FFFEDA;
+    cursor: pointer;
+    text-decoration: none;
+  };
+  .inactive-session {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+    margin-right: 8px;
+    .signup {
+      margin-right: 10px;
+      margin-top: -2px;
+    };
+    .has-form {
+      margin-top: -2px;
+    }
+  };
+  .active-session {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+    margin-right: 8px;
+    .name {
+      color: #FFFEDA;
+      margin-right: 10px;
+    }
   }
-}
-
-.inactive-session {
-  display: flex;
-  justify-content: space-between;
-}
-
-.active-session {
-  display: flex;
-  justify-content: space-between;
 }
