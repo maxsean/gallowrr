@@ -40,6 +40,7 @@ yarn start
 If `yarn start` doesn't work, then try `./bin/webpack-dev-server`
 Then navigate to `localhost:3000`.
 
+The app is also deployed on heroku at https://gallowrr.herokuapp.com/
 If you want to demo the app without signing up, you may use the username: "testuser" with password: "123456".
 
 For Capybara tests run `rake`
