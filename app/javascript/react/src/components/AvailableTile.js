@@ -30,7 +30,10 @@ class AvailableTile extends React.Component{
 
     return(
       <div className="available-tile">
-        {letters}
+        <p>Available Letters</p>
+        <div className="available">
+          {letters}
+        </div>
       </div>
     )
   }
