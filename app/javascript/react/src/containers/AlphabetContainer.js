@@ -45,24 +45,18 @@ class AlphabetContainer extends React.Component{
   render(){
     return(
       <div className="alphabet-container">
-        <hr/>
         <SecretWordContainer
           word={this.props.word}
           chosen_letters={this.props.chosen_letters}
           display_array={this.props.display_array}
         />
-        <hr/>
         <ChosenTile
           chosen_letters={this.props.chosen_letters}
         />
-        <hr/>
-
         <AvailableTile
           letters={this.state.available_letters}
           handleClick={this.props.handleClick}
         />
-        <hr/>
-
       </div>
     )
   }
