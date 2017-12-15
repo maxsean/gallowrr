@@ -4,6 +4,11 @@
   padding: 2px 40px;
 }
 
+.game-list {
+  height: 500px;
+  overflow: scroll;
+}
+
 .game-tile {
   margin: 5px 0;
   background-color: #FFFDDB;
