@@ -24,6 +24,7 @@ class GameShowContainer extends React.Component{
   componentDidMount(){
     this.fetchCurrentUser()
     this.fetchGame()
+
   }
 
   fetchCurrentUser(){
@@ -49,6 +50,7 @@ class GameShowContainer extends React.Component{
         game_user_id: data.user_id,
         outcome: data.outcome
       })
+      this.determineDisplay()
     })
   }
 
@@ -90,7 +92,6 @@ class GameShowContainer extends React.Component{
         outcome: data.outcome
       })
     })
-
     this.determineDisplay()
   }
 
@@ -142,7 +143,7 @@ class GameShowContainer extends React.Component{
       display =
       <div>
         <HangmanContainer
-          incorrect={this.state.incincorrect}
+          incorrect={this.state.incorrect}
         />
         <AlphabetContainer
           chosen_letters={this.state.chosen_letters}
@@ -155,7 +156,7 @@ class GameShowContainer extends React.Component{
       display =
       <div>
         <HangmanContainer
-          incorrect={this.state.incincorrect}
+          incorrect={this.state.incorrect}
         />
         <h1>Sorry, you lost.</h1>
       </div>
@@ -163,7 +164,7 @@ class GameShowContainer extends React.Component{
       display =
       <div>
         <HangmanContainer
-          incorrect={this.state.incincorrect}
+          incorrect={this.state.incorrect}
         />
         <h1>Congratulations!</h1>
         <h3>You correctly guessed: {this.state.word}</h3>
