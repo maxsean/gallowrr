@@ -6,39 +6,15 @@ class SecretWordContainer extends React.Component{
     this.state = {
       chosen_letters: this.props.chosen_letters,
       word: this.props.word,
-      display_array: []
-    }
-    this.determineDisplay = this.determineDisplay.bind(this)
-  }
-
-  componentDidMount(){
-    if(this.state.word){
-      this.determineDisplay()
+      display_array: this.props.display_array
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ chosen_letters: nextProps.chosen_letters });
-    if(this.state.word){
-      this.determineDisplay()
-    }
-  }
-
-  determineDisplay(){
-    let display_array = []
-    let word = this.state.word.toUpperCase()
-
-    for(let i = 0; i < word.length; i++){
-      if(this.state.chosen_letters.includes(word[i])){
-        display_array.push(word[i])
-      } else {
-        display_array.push("_")
-      }
-    }
-
     this.setState({
-      display_array: display_array
-    })
+      chosen_letters: nextProps.chosen_letters,
+      display_array: nextProps.display_array
+    });
   }
 
   render(){

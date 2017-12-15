@@ -8,7 +8,13 @@ const GameTile = (props) => {
         Click to Play
       </Link>
       <div>
-        Incorrect guesses: {props.game.incorrect}
+        Outcome: {props.game.outcome}
+      </div>
+      <div>
+        Total Guesses: {props.game.chosen_letters.length}
+      </div>
+      <div>
+        Incorrect Guesses: {props.game.incorrect}
       </div>
     </div>
   )

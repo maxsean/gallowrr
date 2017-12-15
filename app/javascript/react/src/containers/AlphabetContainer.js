@@ -49,6 +49,7 @@ class AlphabetContainer extends React.Component{
         <SecretWordContainer
           word={this.props.word}
           chosen_letters={this.props.chosen_letters}
+          display_array={this.props.display_array}
         />
         <hr/>
         <ChosenTile

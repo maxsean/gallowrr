@@ -1,6 +1,7 @@
 import React from 'react'
 import AlphabetContainer from './AlphabetContainer'
 import HangmanContainer from './HangmanContainer'
+import ChosenTile from '../components/ChosenTile'
 
 class GameShowContainer extends React.Component{
   constructor(props){
@@ -11,11 +12,13 @@ class GameShowContainer extends React.Component{
       word: null,
       game_user_id: null,
       current_user_id: null,
-      complete: false
+      outcome: "active",
+      display_array: []
     }
     this.fetchGame = this.fetchGame.bind(this)
     this.fetchCurrentUser = this.fetchCurrentUser.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.determineDisplay = this.determineDisplay.bind(this)
   }
 
   componentDidMount(){
@@ -44,20 +47,39 @@ class GameShowContainer extends React.Component{
         chosen_letters: data.chosen_letters,
         word: data.word.body,
         game_user_id: data.user_id,
-        complete: data.complete
+        outcome: data.outcome
       })
     })
   }
 
   handleClick(event){
     event.preventDefault()
+    let word_array = this.state.word.toUpperCase().split('')
+
     let chosen_letters = this.state.chosen_letters
 
     chosen_letters.push(event.target.innerHTML)
 
+    let incorrect = this.state.incorrect
+    if(!word_array.includes(event.target.innerHTML)){
+      incorrect += 1
+    }
+
+    let outcome = this.state.outcome
+
+    if(incorrect >= 10){
+      outcome = "failure"
+    }
+
+    let payload = {
+      incorrect: incorrect,
+      chosen_letters: chosen_letters,
+      outcome: outcome
+    }
+
     fetch(`/api/v1/games/${this.props.params.id}`, {
       method: "PATCH",
-      body: JSON.stringify(chosen_letters)
+      body: JSON.stringify(payload)
     })
     .then(response => response.json())
     .then(data => {
@@ -65,16 +87,58 @@ class GameShowContainer extends React.Component{
         incorrect: data.incorrect,
         chosen_letters: data.chosen_letters,
         game_user_id: data.user_id,
-        complete: data.complete
+        outcome: data.outcome
       })
     })
+
+    this.determineDisplay()
+  }
+
+  determineDisplay(){
+    let display_array = []
+    let word = this.state.word.toUpperCase()
+
+    for(let i = 0; i < word.length; i++){
+      if(this.state.chosen_letters.includes(word[i])){
+        debugger
+        display_array.push(word[i])
+      } else {
+        display_array.push("_")
+      }
+    }
+
+    this.setState({
+      display_array: display_array
+    })
+
+    let string = display_array.join('').toLowerCase()
+    if(string == this.state.word){
+      let payload = {
+        chosen_letters: this.state.chosen_letters,
+        incorrect: this.state.incorrect,
+        outcome: "success"
+      }
+      fetch(`/api/v1/games/${this.props.params.id}`, {
+        method: "PATCH",
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          incorrect: data.incorrect,
+          chosen_letters: data.chosen_letters,
+          game_user_id: data.user_id,
+          outcome: data.outcome
+        })
+      })
+    }
   }
 
   render(){
     let display =
     <h2>Sorry, you are not authorized to view this game</h2>
 
-    if(this.state.game_user_id == this.state.current_user_id){
+    if(this.state.game_user_id == this.state.current_user_id && this.state.outcome == "active"){
       display =
       <div>
         <HangmanContainer
@@ -84,9 +148,32 @@ class GameShowContainer extends React.Component{
           chosen_letters={this.state.chosen_letters}
           word={this.state.word}
           handleClick={this.handleClick}
+          display_array={this.state.display_array}
+        />
+      </div>
+    } else if (this.state.game_user_id == this.state.current_user_id && this.state.outcome == "failure"){
+      display =
+      <div>
+        <HangmanContainer
+          incorrect={this.state.incincorrect}
+        />
+        <h1>Sorry, you lost.</h1>
+      </div>
+    } else if (this.state.game_user_id == this.state.current_user_id && this.state.outcome == "success"){
+      display =
+      <div>
+        <HangmanContainer
+          incorrect={this.state.incincorrect}
+        />
+        <h1>Congratulations!</h1>
+        <h3>You correctly guessed: {this.state.word}</h3>
+        <p>Your guesses: </p>
+        <ChosenTile
+          chosen_letters={this.state.chosen_letters}
         />
       </div>
     }
+
     return(
       <div>
         <div className="game-page-info">
