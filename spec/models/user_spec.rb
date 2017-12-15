@@ -2,8 +2,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
+  it {should have_many(:games)}
+
+  it {should have_many(:words).through(:games)}
+
+  it {should_not belong_to(:game)}
+
+  it {should_not belong_to(:word)}
+
   it {should have_valid(:handle).when("thisisusername")}
-  it {should_not have_valid(:handle).when(nil, "")}
+  it {should_not have_valid(:handle).when(nil, "", "ab")}
 
   it {should have_valid(:email).when("buster@bluth.com")}
   it {should_not have_valid(:email).when(nil, "")}

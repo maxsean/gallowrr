@@ -161,6 +161,7 @@ class GameShowContainer extends React.Component{
         />
         <div className="game-tile">
           <h1>Sorry, you lost.</h1>
+          <a href='/'>Return Home</a>
         </div>
       </div>
     } else if (this.state.game_user_id == this.state.current_user_id && this.state.outcome == "success"){

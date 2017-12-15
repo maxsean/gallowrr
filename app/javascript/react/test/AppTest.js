@@ -10,7 +10,4 @@ describe('A test for App', () => {
     wrapper = mount(<App />)
   })
 
-  it('should pass', () => {
-    expect(wrapper.find('h1').text()).toEqual("Hello World")
-  })
 })
