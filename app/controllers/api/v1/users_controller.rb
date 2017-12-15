@@ -1,5 +1,4 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  # before_action :authenticate_user_api!, only: [:update]
 
   def index
     # returns signed in user, otherwise a fake user that will fail conditionals set up in the React components
@@ -25,28 +24,14 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def show
-    games = Game.where(user_id: params["id"]).order('created_at DESC').to_json(include: :word)
+    games = Game.where(user_id: params["id"]).order('created_at DESC').to_json(include: :word) #include associated word with game
 
-    render json: games
+    # consider refactoring to do less ActiveRecord Queries
+    games_active = current_user.games.where(outcome: "active").count
+    games_won = current_user.games.where(outcome: "success").count
+    games_lost = current_user.games.where(outcome: "failure").count
+
+    render json: { games: games, games_active: games_active, games_won: games_won, games_lost: games_lost }
   end
 
-  def update
-    # not implemented. consider for future development
-    if !current_user.authenticate(params[:password])
-      current_user.errors.add(:password, :invalid)
-      render json: { error: current_user.errors }, status: :unprocessable_entity
-    else
-      current_user.assign_attributes(update_params)
-      if current_user.changed.include?("email") && current_user.valid?
-        current_user.confirmed_at = nil
-        current_user.send(:generate_confirmation_digest)
-        sign_out
-      end
-      if current_user.save
-        render json: current_user
-      else
-        render json: { error: current_user.errors }, status: :unprocessable_entity
-      end
-    end
-  end
 end

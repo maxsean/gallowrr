@@ -8,6 +8,7 @@ class ChosenTile extends React.Component{
     }
   }
 
+  // using react lifecycle method to make sure component re-renders when receiving new props
   componentWillReceiveProps(nextProps) {
   this.setState({ chosen_letters: nextProps.chosen_letters });
   }

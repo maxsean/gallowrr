@@ -16,11 +16,13 @@ class AlphabetContainer extends React.Component{
     this.determineAvailableLetters()
   }
 
+  // using react lifecycle method to make sure component re-renders when receiving new props
   componentWillReceiveProps(nextProps) {
   this.determineAvailableLetters();
 }
 
-
+  // compares chosen letters against english alphabet, determines remaining letters, which will eventually be sent to child AvailableTile via props
+  // consider moving this function to child
   determineAvailableLetters(){
     let alphabet_string = 'abcdefghijklmnopqrstuvwxyz'
     let alphabet_array = alphabet_string.toUpperCase().split('')
@@ -46,8 +48,6 @@ class AlphabetContainer extends React.Component{
     return(
       <div className="alphabet-container">
         <SecretWordContainer
-          word={this.props.word}
-          chosen_letters={this.props.chosen_letters}
           display_array={this.props.display_array}
         />
         <ChosenTile

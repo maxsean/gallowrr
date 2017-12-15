@@ -28,11 +28,13 @@ class WelcomeContainer extends Component {
 
 
   render() {
+    // home page display is determined whether or not a user is signed in
     let display;
     if (this.state.current_user.id) {
       display =
         <UserContainer
           current_user_id={this.state.current_user.id}
+          current_user_handle={this.state.current_user.handle}
         />
     } else {
       display =

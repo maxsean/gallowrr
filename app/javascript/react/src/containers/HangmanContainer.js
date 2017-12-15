@@ -6,7 +6,7 @@ class HangmanContainer extends React.Component{
   }
   render(){
     var incorrect = this.props.incorrect
-
+    // incorrect determines which svg child gets rendered
     return(
       <div className="hangman-container">
         <svg version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" className="svg-content">
