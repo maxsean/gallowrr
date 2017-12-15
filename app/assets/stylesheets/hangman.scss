@@ -1,0 +1,17 @@
+.hangman-container {
+  display: inline-block;
+	position: relative;
+	vertical-align: middle;
+  width: 33%;
+  height: auto;
+	overflow: hidden;
+  border-width: thin;
+  border-color: #000;
+}
+
+svg.svg-content {
+  height: auto;
+  max-height: 300px;
+  vertical-align: middle;
+
+}
