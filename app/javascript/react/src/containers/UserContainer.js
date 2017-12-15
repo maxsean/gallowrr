@@ -51,7 +51,7 @@ class UserContainer extends React.Component{
     return(
       <div className="user-container">
         {games}
-        <button onClick={this.handleClick}>
+        <button className="add-button" onClick={this.handleClick}>
           Add a Game
         </button>
       </div>
