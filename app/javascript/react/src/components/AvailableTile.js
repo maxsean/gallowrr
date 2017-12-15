@@ -8,12 +8,13 @@ class AvailableTile extends React.Component{
     }
   }
 
+  // using react lifecycle method to make sure component re-renders when receiving new props
   componentWillReceiveProps(nextProps) {
-  this.setState({ letters: nextProps.letters });
-}
-
+    this.setState({ letters: nextProps.letters });
+  }
 
   render(){
+    // only AvailableTile letters can be clickable. Check against SecretWordContainer and ChosenTile
     let letters;
     if(this.props.letters){
       letters = this.props.letters.map(letter => {

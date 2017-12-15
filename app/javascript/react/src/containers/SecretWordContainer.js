@@ -6,8 +6,10 @@ class SecretWordContainer extends React.Component{
     this.state = {
       display_array: this.props.display_array
     }
+    // display_array is received from grandparent GameShowContainer
   }
 
+  // using react lifecycle method to make sure component re-renders when receiving new props
   componentWillReceiveProps(nextProps) {
     this.setState({
       chosen_letters: nextProps.chosen_letters,
@@ -16,6 +18,7 @@ class SecretWordContainer extends React.Component{
   }
 
   render(){
+    // need to refactor unique key generator line 26.
     let display;
     if(this.state.display_array.length > 0){
       display = this.state.display_array.map(letter => {

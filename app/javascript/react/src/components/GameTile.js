@@ -2,9 +2,11 @@ import React from 'react'
 import { Link } from 'react-router'
 
 const GameTile = (props) => {
+  // props received from parent UserContainer
   let color = "#FFFDDB"
   let victory;
-  if(props.game.outcome == "success"){
+  // if player wins a hangman game, the secret word is revealed on home/root page with game list, additionally color of the game tile changes to reflect game outcome
+  if(props.game.outcome == "success" && props.game.word){
     color = "#9BF99B"
     victory =
       <div>
