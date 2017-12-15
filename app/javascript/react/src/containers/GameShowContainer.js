@@ -19,12 +19,12 @@ class GameShowContainer extends React.Component{
     this.fetchCurrentUser = this.fetchCurrentUser.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.determineDisplay = this.determineDisplay.bind(this)
+    this.updateGame = this.updateGame.bind(this)
   }
 
   componentDidMount(){
     this.fetchCurrentUser()
     this.fetchGame()
-
   }
 
   fetchCurrentUser(){
@@ -50,17 +50,17 @@ class GameShowContainer extends React.Component{
         game_user_id: data.user_id,
         outcome: data.outcome
       })
+      // How the secret word is displayed is frontend logic for now, thus it needs to be calculated each re-render. Consider refactoring the backend to include word display attribute in Game object
       this.determineDisplay()
     })
   }
 
   handleClick(event){
+    // triggers any time user clicks on a letter in the AvailableTile
     event.preventDefault()
-    let word_array = this.state.word.toUpperCase().split('')
-
+    let word_array = this.state.word.toUpperCase().split('') // to be used to compare against clicked letter
     let chosen_letters = this.state.chosen_letters
-
-    chosen_letters.push(event.target.innerHTML)
+    chosen_letters.push(event.target.innerHTML) // adding clicked letter to chosen_letters array
 
     let incorrect = this.state.incorrect
     if(!word_array.includes(event.target.innerHTML)){
@@ -68,7 +68,6 @@ class GameShowContainer extends React.Component{
     }
 
     let outcome = this.state.outcome
-
     if(incorrect >= 10){
       outcome = "failure"
     }
@@ -79,6 +78,12 @@ class GameShowContainer extends React.Component{
       outcome: outcome
     }
 
+    // every time letter is clicked, Game object needs to be updated in backend
+    this.updateGame(payload)
+    this.determineDisplay()
+  }
+
+  updateGame(payload){
     fetch(`/api/v1/games/${this.props.params.id}`, {
       method: "PATCH",
       body: JSON.stringify(payload)
@@ -92,12 +97,11 @@ class GameShowContainer extends React.Component{
         outcome: data.outcome
       })
     })
-    this.determineDisplay()
   }
 
   determineDisplay(){
     let display_array = []
-    let word = this.state.word.toUpperCase()
+    let word = this.state.word.toUpperCase() // to be consistent with array of letters (always caps)
 
     for(let i = 0; i < word.length; i++){
       if(this.state.chosen_letters.includes(word[i])){
@@ -107,38 +111,26 @@ class GameShowContainer extends React.Component{
       }
     }
 
-    this.setState({
-      display_array: display_array
-    })
-
-    let string = display_array.join('').toLowerCase()
+    let string = display_array.join('').toLowerCase() // convert array of letters for secret word display into a string to compare against the actual word
     if(string == this.state.word){
       let payload = {
         chosen_letters: this.state.chosen_letters,
         incorrect: this.state.incorrect,
         outcome: "success"
       }
-      fetch(`/api/v1/games/${this.props.params.id}`, {
-        method: "PATCH",
-        body: JSON.stringify(payload)
-      })
-      .then(response => response.json())
-      .then(data => {
-        this.setState({
-          incorrect: data.incorrect,
-          chosen_letters: data.chosen_letters,
-          game_user_id: data.user_id,
-          outcome: data.outcome
-        })
-      })
+      this.updateGame(payload)
     }
+
+    this.setState({
+      display_array: display_array
+    })
   }
 
   render(){
     let display =
     <div className="game-tile">
       <h2>Sorry, you are not authorized to view this game</h2>
-    </div>
+    </div> // user can manipulate url to visit any game, this prevents them from affecting the game by comparing associated user_id of the game to the current_user.id
 
     if(this.state.game_user_id == this.state.current_user_id && this.state.outcome == "active"){
       display =
@@ -148,7 +140,6 @@ class GameShowContainer extends React.Component{
         />
         <AlphabetContainer
           chosen_letters={this.state.chosen_letters}
-          word={this.state.word}
           handleClick={this.handleClick}
           display_array={this.state.display_array}
         />
