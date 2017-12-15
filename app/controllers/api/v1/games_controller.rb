@@ -7,12 +7,15 @@ class Api::V1::GamesController < Api::V1::ApiController
   end
 
   def create
-    body = JSON.parse(request.body.read)
-    binding.pry
-    game = Game.new(body)
-    #set randome word as game word, database has unique so if it doesn't save, get another (until loop)
+    game = Game.new(user_id: current_user.id, word: Word.order("RANDOM()").first)
 
-    #return list of games to user?
+    until game.save do
+      game = Game.new(user_id: body, word: Word.order("RANDOM()").first)
+    end
+
+    games = Game.where(user_id: current_user.id).order('created_at DESC')
+
+    render json: games
   end
 
   def update

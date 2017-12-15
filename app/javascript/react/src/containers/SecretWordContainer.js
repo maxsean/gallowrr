@@ -23,7 +23,7 @@ class SecretWordContainer extends React.Component{
       display = this.state.display_array.map(letter => {
         return(
           <div className="letter-tile"
-            key={String(Date.now()) + '-' + Math.floor(Math.random() * 10000)}
+            key={String(Date.now()) + '-' + Math.floor(Math.random() * 100000) + letter}
             >
               {letter}
           </div>

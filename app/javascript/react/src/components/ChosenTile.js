@@ -18,7 +18,7 @@ class ChosenTile extends React.Component{
       letters = this.state.chosen_letters.map(letter => {
         return(
           <div className="letter-tile"
-            key={String(Date.now()) + '-' + Math.floor(Math.random() * 10000)}>
+            key={letter}>
               {letter}
             </div>
         )

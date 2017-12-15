@@ -19,7 +19,7 @@ class AvailableTile extends React.Component{
       letters = this.props.letters.map(letter => {
         return(
           <div className="letter-tile"
-            key={String(Date.now()) + '-' + Math.floor(Math.random() * 10000)}
+            key={letter}
             onClick={this.props.handleClick}
             >
               {letter}
