@@ -136,7 +136,9 @@ class GameShowContainer extends React.Component{
 
   render(){
     let display =
-    <h2>Sorry, you are not authorized to view this game</h2>
+    <div className="game-tile">
+      <h2>Sorry, you are not authorized to view this game</h2>
+    </div>
 
     if(this.state.game_user_id == this.state.current_user_id && this.state.outcome == "active"){
       display =
@@ -157,7 +159,9 @@ class GameShowContainer extends React.Component{
         <HangmanContainer
           incorrect={this.state.incorrect}
         />
-        <h1>Sorry, you lost.</h1>
+        <div className="game-tile">
+          <h1>Sorry, you lost.</h1>
+        </div>
       </div>
     } else if (this.state.game_user_id == this.state.current_user_id && this.state.outcome == "success"){
       display =
@@ -165,9 +169,11 @@ class GameShowContainer extends React.Component{
         <HangmanContainer
           incorrect={this.state.incorrect}
         />
-        <h1>Congratulations!</h1>
-        <h3>You correctly guessed: {this.state.word}</h3>
-        <p>Your guesses: </p>
+        <div className="game-tile">
+          <h1>Congratulations!</h1>
+          <h3>You correctly guessed: {this.state.word}</h3>
+          <a href='/'>Return Home</a>
+        </div>
         <ChosenTile
           chosen_letters={this.state.chosen_letters}
         />
@@ -180,7 +186,9 @@ class GameShowContainer extends React.Component{
           <p>Total Guesses: {this.state.chosen_letters.length}</p>
           <p>Total Incorrect Guesses: {this.state.incorrect}</p>
         </div>
-        {display}
+        <div className="game-display">
+          {display}
+        </div>
       </div>
     )
   }

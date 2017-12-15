@@ -26,8 +26,11 @@ class ChosenTile extends React.Component{
     }
 
     return(
-      <div>
-        {letters}
+      <div className="chosen-tile">
+        <p>Guesses</p>
+        <div className="chosen">
+          {letters}
+        </div>
       </div>
     )
   }

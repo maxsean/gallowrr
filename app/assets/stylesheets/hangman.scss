@@ -2,16 +2,12 @@
   display: inline-block;
 	position: relative;
 	vertical-align: middle;
-  width: 33%;
+  width: 100vw;
   height: auto;
 	overflow: hidden;
-  border-width: thin;
-  border-color: #000;
 }
 
 svg.svg-content {
   height: auto;
   max-height: 300px;
-  vertical-align: middle;
-
 }

@@ -6,7 +6,7 @@ class HangmanContainer extends React.Component{
   }
   render(){
     var incorrect = this.props.incorrect
-    
+
     return(
       <div className="hangman-container">
         <svg version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" className="svg-content">
@@ -14,7 +14,7 @@ class HangmanContainer extends React.Component{
 
           {incorrect >= 1 ? <svg><rect fill="rgb(0,0,0)" width="10" height="230" x="20" y="0" /><rect fill="rgb(0,0,0)" width="150" height="10" x="20" y="0" /></svg>:null}
           {incorrect >= 2 ? <line x1="140" y1 = "0" x2="140" y2 = "50" stroke = "rgb(0,0,0)"/>:null}
-          {incorrect >= 3 ? <circle cx="140" cy="80" r="30" fill="none" stroke="black" strokeWidth="2"/>:null}
+          {incorrect >= 3 ? <circle cx="140" cy="80" r="30" fill="#FFFEDA" stroke="black" strokeWidth="2"/>:null}
           {incorrect >= 4 ? <rect width="5" height="50" x="137" y="110" />:null}
           {incorrect >= 5 ? <line x1="140" y1="120" x2="120" y2="150" stroke="black" strokeLinecap="round" strokeWidth="4"/>:null}
           {incorrect >= 6 ? <line x1="140" y1="120" x2="160" y2="150" stroke="black" strokeLinecap="round" strokeWidth="4"/>:null}

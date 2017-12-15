@@ -6,18 +6,19 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
   </head>
 
   <body>
 
-    <nav class="top-bar">
+    <div class="top-bar">
      <div class="Home">
        <h1><a href="/">GALLOWRR </a></h1>
      </div>
        <% if user_signed_in? %>
        <div class="active-session">
          <div class="name">
-           <h1><a>Welcome <%= current_user.handle %><a></h1>
+           Welcome <%= current_user.handle %> |
          </div>
           <div>
             <%= link_to 'Sign Out', root_path, method: :delete %>
@@ -25,7 +26,7 @@
         </div>
        <% elsif current_user.nil? %>
         <div class="inactive-session">
-         <div class="active">
+         <div class="signup">
            <a href="/signup">Sign Up</a>
          </div>
          <div class="has-form" style="display: inline-block;">
@@ -45,7 +46,7 @@
           </div>
         </div>
       <% end %>
-    </nav>
+    </div>
 
     <br/>
     <br/>
