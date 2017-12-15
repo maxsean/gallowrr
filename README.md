@@ -1,5 +1,3 @@
-# README
-
 # GALLOWRR
 A simple Hangman app
 
@@ -24,7 +22,7 @@ The technical considerations are as follows:
 * Jasmine-Enzyme: testing React components and features
 
 ## Setup
-The assumption is that `ruby 2.3.3`, `rails 5.1.4`, and `yarn 1.2.1` or greater is installed.
+The assumption is that `ruby 2.3.3+`, `rails 5.1.4+`, `yarn 1.2.1+`, and PhantomJS (for testing) is installed.
 In app directory, run:
 ```
 bundle install
