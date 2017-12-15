@@ -7,10 +7,27 @@ class UserContainer extends React.Component{
     this.state = {
       games: []
     }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount(){
     fetch(`/api/v1/users/${this.props.current_user_id}`)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        games: data
+      })
+    })
+  }
+
+  handleClick(event){
+    event.preventDefault()
+    fetch('/api/v1/games', {
+      credentials: 'same-origin',
+      method: "POST",
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(this.props.curcurrent_user_id)
+    })
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -34,6 +51,9 @@ class UserContainer extends React.Component{
     return(
       <div className="user-container">
         {games}
+        <button onClick={this.handleClick}>
+          Add a Game
+        </button>
       </div>
     )
   }

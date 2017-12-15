@@ -101,7 +101,6 @@ class GameShowContainer extends React.Component{
 
     for(let i = 0; i < word.length; i++){
       if(this.state.chosen_letters.includes(word[i])){
-        debugger
         display_array.push(word[i])
       } else {
         display_array.push("_")
