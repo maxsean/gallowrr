@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20171214012841) do
     t.bigint "user_id"
     t.bigint "word_id"
     t.integer "incorrect", default: 0, null: false
-    t.boolean "complete", default: false, null: false
+    t.string "outcome", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "chosen_letters", default: [], array: true

@@ -19,7 +19,8 @@ class Api::V1::GamesController < Api::V1::ApiController
     body = JSON.parse(request.body.read)
 
     game = Game.find(params["id"])
-    game.update(chosen_letters: body)
+
+    game.update(chosen_letters: body["chosen_letters"], incorrect: body["incorrect"], outcome: body["outcome"])
 
     render json: game
   end
