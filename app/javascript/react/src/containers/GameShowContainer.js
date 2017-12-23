@@ -2,6 +2,7 @@ import React from 'react'
 import AlphabetContainer from './AlphabetContainer'
 import HangmanContainer from './HangmanContainer'
 import ChosenTile from '../components/ChosenTile'
+import { Link } from 'react-router'
 
 class GameShowContainer extends React.Component{
   constructor(props){
@@ -152,7 +153,7 @@ class GameShowContainer extends React.Component{
         />
         <div className="game-tile">
           <h1>Sorry, you lost.</h1>
-          <a href='/'>Return Home</a>
+          <Link to='/'>Return Home</Link>
         </div>
       </div>
     } else if (this.state.game_user_id == this.state.current_user_id && this.state.outcome == "success"){
@@ -164,7 +165,7 @@ class GameShowContainer extends React.Component{
         <div className="game-tile">
           <h1>Congratulations!</h1>
           <h3>You correctly guessed: {this.state.word}</h3>
-          <a href='/'>Return Home</a>
+          <Link to='/'>Return Home</Link>
         </div>
         <ChosenTile
           chosen_letters={this.state.chosen_letters}
