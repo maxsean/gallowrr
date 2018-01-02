@@ -51,3 +51,7 @@ and for Jasmine-Enzyme tests run `karma start`.
 * Curate word list for difficulty
 * Create criteria for points so users can accumulate a score
 * Refactor with redux for state management
+* Allow game to be played with keyboard
+* Reveal word after losing
+* Adding a game should bring user to game
+* Move game logic from client to server
